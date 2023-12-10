@@ -9,72 +9,36 @@
     <div class="address-container m-4 ps-2 pe-4 my-2 w-100">
       <span class="p-float-label">
         <h6 class="addressLabel p-1 ps-0">Tên đường</h6>
-        <input
-          class="inputtext ps-2 w-100"
-          type="text"
-          [(ngModel)]="rescuePost.street"
-        />
+        <input class="inputtext ps-2 w-100" type="text" [(ngModel)]="rescuePost.street" />
       </span>
       <span class="p-float-label">
         <h6 class="addressLabel p-1 ps-0">Thành phố/Tỉnh</h6>
-        <p-dropdown
-          [options]="listProvince"
-          [filter]="true"
-          [autoDisplayFirst]="false"
-          optionLabel="provName"
-          [(ngModel)]="selectedProvince"
-          filterBy="provName"
-          (onChange)="provinceSelectedChange($event.value)"
-        >
+        <p-dropdown [options]="listProvince" [filter]="true" [autoDisplayFirst]="false" optionLabel="provName"
+          [(ngModel)]="selectedProvince" filterBy="provName" (onChange)="provinceSelectedChange($event.value)">
         </p-dropdown>
       </span>
       <span class="p-float-label">
         <h6 class="addressLabel p-1 ps-0">Quận/Huyện</h6>
-        <p-dropdown
-          [filter]="true"
-          [autoDisplayFirst]="false"
-          [options]="listDistrict"
-          [(ngModel)]="selectedDistrict"
-          optionLabel="distName"
-          filterBy="distName"
-          (onChange)="districtSelectedChange($event.value)"
-        >
+        <p-dropdown [filter]="true" [autoDisplayFirst]="false" [options]="listDistrict" [(ngModel)]="selectedDistrict"
+          optionLabel="distName" filterBy="distName" (onChange)="districtSelectedChange($event.value)">
         </p-dropdown>
       </span>
       <span class="p-float-label">
         <h6 class="addressLabel p-1 ps-0">Phường/Xã</h6>
-        <p-dropdown
-          [options]="listWard"
-          [autoDisplayFirst]="false"
-          [filter]="true"
-          [(ngModel)]="selectedWard"
-          filterBy="wardName"
-          optionLabel="wardName"
-        >
+        <p-dropdown [options]="listWard" [autoDisplayFirst]="false" [filter]="true" [(ngModel)]="selectedWard"
+          filterBy="wardName" optionLabel="wardName">
         </p-dropdown>
       </span>
     </div>
     <div class="address-des mx-4 my-2 ps-2 pe-4 w-100">
       <h6 class="addressLabel ps-0">Miêu tả địa điểm</h6>
-      <textarea
-        class="w-100"
-        name=""
-        id="textarea"
-        [(ngModel)]="rescuePost.locationDescription"
-        pInputTextarea
-        [autoResize]="true"
-      ></textarea>
+      <textarea class="w-100" name="" id="textarea" [(ngModel)]="rescuePost.locationDescription" pInputTextarea
+        [autoResize]="true"></textarea>
     </div>
     <div class="status-des mx-4 ps-2 pe-4 w-100">
       <h6 class="ps-0">Tình trạng hiện tại của bé</h6>
-      <textarea
-        class="w-100"
-        name=""
-        [(ngModel)]="rescuePost.animalDescription"
-        id="textarea"
-        pInputTextarea
-        [autoResize]="true"
-      ></textarea>
+      <textarea class="w-100" name="" [(ngModel)]="rescuePost.animalDescription" id="textarea" pInputTextarea
+        [autoResize]="true"></textarea>
     </div>
   </div>
 
@@ -85,31 +49,18 @@
           <b>Ảnh</b>
         </div>
       </p-divider>
-      <div
-        class="img-container m-4 my-1 d-flex flex-wrap"
-        *ngIf="rescuePost.images"
-      >
+      @if(rescuePost.images) {
+      <div class="img-container m-4 my-1 d-flex flex-wrap">
         <div class="img-content m-2" *ngFor="let img of rescuePost.images">
-          <div
-            class="btn-delete rounded-circle d-flex justify-content-center"
-            (click)="deleteImg(img)"
-          >
+          <div class="btn-delete rounded-circle d-flex justify-content-center" (click)="deleteImg(img)">
             <i class="bi bi-x" style="color: #f5f5f5"></i>
           </div>
           <img src="{{ img }}" alt="" />
         </div>
-      </div>
-      <p-fileUpload
-        name="file[]"
-        class="w-100 m-4 my-1 pe-4"
-        name="demo[]"
-        chooseLabel="Chọn ảnh"
-        cancelLabel="Huỷ bỏ"
-        [showUploadButton]="false"
-        [multiple]="true"
-        [maxFileSize]="10000000"
-        (onSelect)="onSelectFiles($event)"
-      >
+      </div> }
+
+      <p-fileUpload name="file[]" class="w-100 m-4 my-1 pe-4" name="demo[]" chooseLabel="Chọn ảnh" cancelLabel="Huỷ bỏ"
+        [showUploadButton]="false" [multiple]="true" [maxFileSize]="10000000" (onSelect)="onSelectFiles($event)">
         <ng-template pTemplate="content">
           <!-- <ul *ngIf="uploadedFiles.length">
             <li *ngFor="let file of uploadedFiles">
@@ -121,19 +72,11 @@
     </div>
   </div>
   <div class="button-group d-flex justify-content-center mt-2 gap-2">
-    <button
-      type="submit"
-      class="btn btn-secondary text-nowrap"
-      (click)="deleteRescuePost()"
-    >
+    <button type="submit" class="btn btn-secondary text-nowrap" (click)="deleteRescuePost()">
       Xoá
     </button>
 
-    <button
-      type="submit"
-      class="btn btn-primary text-nowrap"
-      (click)="updateRescuePost()"
-    >
+    <button type="submit" class="btn btn-primary text-nowrap" (click)="updateRescuePost()">
       Cập nhật
     </button>
   </div>

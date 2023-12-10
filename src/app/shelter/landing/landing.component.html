@@ -1,15 +1,16 @@
 <div class="page position-relative">
+  @if(isLoading) {
   <div
-    *ngIf="isLoading"
-    class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body z-3"
-  >
+    class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body z-3">
     <div class="spinner-border" role="status">
       <span class="sr-only">Đang tải...</span>
     </div>
     <p style="opacity: 0.7">Đang tải</p>
-  </div>
+  </div> }
+
   <div class="container p-4">
-    <div class="page-stat p-4 d-flex justify-content-between" *ngIf="pageStat">
+    @if(pageStat) {
+    <div class="page-stat p-4 d-flex justify-content-between">
       <div class="card px-3 py-3">
         <h3 class="text-center">{{ pageStat.totalNumbersOfAnimal }}</h3>
         <h4>Thú cưng trong trại</h4>
@@ -24,46 +25,36 @@
         </h3>
         <h4>Bé đã được giải cứu</h4>
       </div>
-    </div>
+    </div> }
+
     <div class="page-chart p-4">
       <div class="d-flex gap-2">
-        <div class="mb-4 w-50 chart-container rounded-3 p-4" *ngIf="pageStat">
+        @if(pageStat) {
+        <div class="mb-4 w-50 chart-container rounded-3 p-4">
           <h3 class="text-center mt-2">Giải cứu hoàn thành</h3>
           <h3 class="text-center mt-2"></h3>
-          <p-chart
-            [data]="rescuePost"
-            type="bar"
-            [ngStyle]="{ 'marginTop.px': 40 }"
-            title="Tổng trại cứu trợ"
-          >
+          <p-chart [data]="rescuePost" type="bar" [ngStyle]="{ 'marginTop.px': 40 }" title="Tổng trại cứu trợ">
             Main chart
           </p-chart>
-        </div>
-        <div class="mb-4 w-50 chart-container rounded-3 p-4" *ngIf="pageStat">
+        </div> }
+        @if(pageStat) {
+        <div class="mb-4 w-50 chart-container rounded-3 p-4">
           <h3 class="text-center mt-2">Thú cưng</h3>
           <c-card-body>
-            <p-chart
-              [data]="petChartData"
-              type="bar"
-              [ngStyle]="{ 'marginTop.px': 40 }"
-              title="Thú cưng trong trại"
-            >
+            <p-chart [data]="petChartData" type="bar" [ngStyle]="{ 'marginTop.px': 40 }" title="Thú cưng trong trại">
               Main chart
             </p-chart>
           </c-card-body>
-        </div>
-      </div>
+        </div> }
 
-      <div class="mb-4 chart-container rounded-3 p-4" *ngIf="pageStat">
-        <h3 class="text-center mt-2">Tổng quỹ cứu trợ</h3>
-        <p-chart
-          [data]="fundChartData"
-          type="bar"
-          [ngStyle]="{ 'marginTop.px': 40 }"
-          title="Tổng quỹ trong trại"
-        >
-        </p-chart>
       </div>
+      @if(pageStat) {
+      <div class="mb-4 chart-container rounded-3 p-4" *ngIf="">
+        <h3 class="text-center mt-2">Tổng quỹ cứu trợ</h3>
+        <p-chart [data]="fundChartData" type="bar" [ngStyle]="{ 'marginTop.px': 40 }" title="Tổng quỹ trong trại">
+        </p-chart>
+      </div> }
+
     </div>
   </div>
 </div>

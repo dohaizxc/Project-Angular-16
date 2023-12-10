@@ -1,22 +1,12 @@
-<app-widget
-  [breadcrumbItimes]="breadcrumbItimes"
+<app-widget [breadcrumbItimes]="breadcrumbItimes"
   img="'https://i.ibb.co/y6znmC0/mikhail-vasilyev-Nodtn-Cs-Ld-TE-unsplash-2.jpg'"
-  title="Chi tiết thú cưng"
-></app-widget>
+  title="Chi tiết thú cưng"></app-widget>
 <div class="container p-4">
   <div class="info">
-    <p-galleria
-      [value]="listImg"
-      [showIndicators]="false"
-      [showItemNavigatorsOnHover]="true"
-      [showItemNavigators]="true"
-      [responsiveOptions]="responsiveOptions"
-      [containerStyle]="{ 'max-width': '760px' }"
-    >
+    <p-galleria [value]="listImg" [showIndicators]="false" [showItemNavigatorsOnHover]="true"
+      [showItemNavigators]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '760px' }">
       <ng-template pTemplate="item" let-item>
-        <img
-          [src]="item"
-          style="
+        <img [src]="item" style="
             width: 80%;
             display: block;
             padding-bottom: 10px;
@@ -24,8 +14,7 @@
             max-height: 400px;
             object-fit: cover;
             border-radius: 5px;
-          "
-        />
+          " />
       </ng-template>
       <ng-template pTemplate="thumbnail" let-item>
         <div class="grid grid-nogutter justify-content-center">
@@ -64,37 +53,29 @@
 
       <div class="my-2">
         <div class="ps-4 d-inline" *ngFor="let user of listOnlineAdopter">
-          <p-avatar
-            image="{{ user.userAvatar }}"
-            size="large"
-            shape="circle"
-            pTooltip="{{ user.userFirstName + ' ' + user.userLastName }}"
-            tooltipPosition="bottom"
-          ></p-avatar>
+          <p-avatar image="{{ user.userAvatar }}" size="large" shape="circle"
+            pTooltip="{{ user.userFirstName + ' ' + user.userLastName }}" tooltipPosition="bottom"></p-avatar>
         </div>
       </div>
-
-      <div class="ps-4 p-2" *ngIf="listOnlineAdopter.length === 0">
+      @if(listOnlineAdopter.length === 0) {
+      <div class="ps-4 p-2">
         Hiện tại chưa có người nhận nuôi
-      </div>
+      </div> }
+
       <div class="button-group pt-2 ps-4 d-flex">
         <button class="btn btn-primary" (click)="editPet()">
           Sửa thông tin
         </button>
-        <button
-          class="btn btn-secondary"
-          (click)="deletePet()"
-          *ngIf="!pet.isDelete"
-        >
+        @if(pet.isDelete) {
+        <button class="btn btn-secondary" (click)="reavealPet()">
+          Khôi phục thú cưng
+        </button>}
+        @else {
+        <button class="btn btn-secondary" (click)="deletePet()">
           Ẩn thú cưng
         </button>
-        <button
-          class="btn btn-secondary"
-          (click)="reavealPet()"
-          *ngIf="pet.isDelete"
-        >
-          Khôi phục thú cưng
-        </button>
+        }
+
       </div>
       <p-toast key="deletePet" [preventOpenDuplicates]="true"></p-toast>
       <p-confirmDialog #cd position="bottom" [style]="{ width: '50vw' }">
@@ -102,22 +83,10 @@
           <h3>Xoá thú cưng</h3>
         </ng-template>
         <ng-template pTemplate="footer">
-          <button
-            class="btn btn-secondary"
-            type="button"
-            pButton
-            icon="pi pi-times"
-            label="Huỷ"
-            (click)="cd.reject()"
-          ></button>
-          <button
-            class="btn btn-primary"
-            type="button"
-            pButton
-            icon="pi pi-check"
-            label="Xác nhận"
-            (click)="cd.accept()"
-          ></button>
+          <button class="btn btn-secondary" type="button" pButton icon="pi pi-times" label="Huỷ"
+            (click)="cd.reject()"></button>
+          <button class="btn btn-primary" type="button" pButton icon="pi pi-check" label="Xác nhận"
+            (click)="cd.accept()"></button>
         </ng-template>
       </p-confirmDialog>
     </div>
@@ -129,16 +98,8 @@
       </div>
     </p-divider>
     <div>
-      <textarea
-        class="w-100 ps-4"
-        name=""
-        id="textarea"
-        pInputTextarea
-        [autoResize]="true"
-        [(ngModel)]="pet.animalStatus"
-        disabled="true"
-        style="font-size: 1.15rem"
-      ></textarea>
+      <textarea class="w-100 ps-4" name="" id="textarea" pInputTextarea [autoResize]="true"
+        [(ngModel)]="pet.animalStatus" disabled="true" style="font-size: 1.15rem"></textarea>
     </div>
   </div>
 </div>

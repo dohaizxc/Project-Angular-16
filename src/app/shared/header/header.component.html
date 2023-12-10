@@ -1,113 +1,71 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary">
   <div class="container-fluid">
-    <img
-      (click)="routeToHomePage()"
-      style="cursor: pointer"
-      class="mx-3"
-      src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png"
-      alt="Logo"
-    />
+    <img (click)="routeToHomePage()" style="cursor: pointer" class="mx-3"
+      src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png" alt="Logo" />
 
-    <button
-      class="navbar-toggler me-4"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarText"
-      aria-controls="navbarText"
-      aria-expanded="true"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler me-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="true" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div
-      class="collapse navbar-collapse"
-      id="navbarText"
-      [ngClass]="{ 'align-right': !isLoggin }"
-    >
-      <ul class="navbar-nav m-auto mb-lg-0" *ngIf="isLoggin">
+    <div class="collapse navbar-collapse" id="navbarText" [ngClass]="{ 'align-right': !isLoggin }">
+      @if(isLoggin) {
+      <ul class="navbar-nav m-auto mb-lg-0">
         <li class="nav-item p-3">
-          <a
-            id="home"
-            class="nav-link active"
-            (click)="routeToHomePage()"
-            (click)="onNavbarClick($event)"
-            >Trang chủ</a
-          >
+          <a id="home" class="nav-link active" (click)="routeToHomePage()" (click)="onNavbarClick($event)">Trang chủ</a>
         </li>
         <li class="nav-item p-3">
-          <a
-            id="rescue"
-            class="nav-link"
-            (click)="routeToRescuePage()"
-            (click)="onNavbarClick($event)"
-            >Cứu trợ</a
-          >
+          <a id="rescue" class="nav-link" (click)="routeToRescuePage()" (click)="onNavbarClick($event)">Cứu trợ</a>
         </li>
         <li class="nav-item p-3">
-          <a
-            id="pet"
-            class="nav-link"
-            (click)="routeToAdoptPage()"
-            (click)="onNavbarClick($event)"
-            >Thú cưng <i class="bi bi-chevron-down" *ngIf="isShelter"></i
-          ></a>
-
-          <ul class="adopt-menu px-3 pb-1 pt-4 rounded-1" *ngIf="isShelter">
+          <a id="pet" class="nav-link" (click)="routeToAdoptPage()" (click)="onNavbarClick($event)">Thú cưng
+            @if(isShelter) {
+            <i class="bi bi-chevron-down"></i> }</a>
+          @if(isShelter) {
+          <ul class="adopt-menu px-3 pb-1 pt-4 rounded-1">
             <li><a [routerLink]="['/shelter/adopt']">Danh sách</a></li>
             <li class="mt-2 pb-2">
               <a [routerLink]="['/shelter/adopt/adoption-request']"> Yêu cầu</a>
             </li>
-          </ul>
+          </ul> }
+
         </li>
         <li class="nav-item p-3">
-          <a
-            id="donate"
-            class="nav-link"
-            (click)="onNavbarClick($event)"
-            (click)="routeToDonatePage()"
-            >Ủng hộ</a
-          >
+          <a id="donate" class="nav-link" (click)="onNavbarClick($event)" (click)="routeToDonatePage()">Ủng hộ</a>
         </li>
         <span class="nav-indicator bg-primary"></span>
-      </ul>
+      </ul> }
 
-      <ul class="navbar-nav mb-lg-0" *ngIf="!isLoggin">
+      @if(!isLoggin) {
+      <ul class="navbar-nav mb-lg-0">
         <li class="nav-item px-2 py-1" id="btn-sign-in">
           <a [routerLink]="['/login']">Đăng nhập</a>
         </li>
         <li class="nav-item px-2 py-1" id="btn-sign-up">
           <a class="mx-4" [routerLink]="'/register'">Đăng ký</a>
         </li>
-      </ul>
+      </ul> }
 
-      <ul class="navbar-nav ms-3 me-2 mb-lg-0" *ngIf="isLoggin">
+      @if(isLoggin) {
+      <ul class="navbar-nav ms-3 me-2 mb-lg-0">
         <li class="nav-item d-flex align-items-center pe-3">
-          <a
-            class="m-auto"
-            [routerLink]="['/chat']"
-            (click)="setUnreadMessage(0)"
-          >
+          <a class="m-auto" [routerLink]="['/chat']" (click)="setUnreadMessage(0)">
             <i class="bi bi-chat"></i>
-
-            <div
-              class="notification rounded-circle"
-              *ngIf="unreadMessage"
-            ></div>
+            @if(unreadMessage) {
+            <div class="notification rounded-circle"></div>
+            }
           </a>
         </li>
 
         <li class="nav-item p-1">
           <p-menu #menu [model]="menuItems" [popup]="true"></p-menu>
-          <p-avatar
-            (click)="menu.toggle($event)"
-            image="{{ imageUrl }}"
-            styleClass="mr-2"
-            size="large"
-            shape="circle"
-          ></p-avatar>
+          <p-avatar (click)="menu.toggle($event)" image="{{ imageUrl }}" styleClass="mr-2" size="large"
+            shape="circle"></p-avatar>
         </li>
-      </ul>
+      </ul> }
+
+
+
     </div>
   </div>
 </nav>

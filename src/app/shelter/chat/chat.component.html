@@ -4,35 +4,27 @@
     <div class="search-bar w-100 d-flex flex-nowrap">
       <span class="p-input-icon-left w-100 px-2">
         <i class="pi pi-search"></i>
-        <input
-          type="text"
-          placeholder="Nhập tên người nhận ..."
-          class="rounded-4 p-1 w-100"
-          [(ngModel)]="userSearch"
-          (ngModelChange)="onUserSearched()"
-          pInputText
-        />
+        <input type="text" placeholder="Nhập tên người nhận ..." class="rounded-4 p-1 w-100" [(ngModel)]="userSearch"
+          (ngModelChange)="onUserSearched()" pInputText />
       </span>
     </div>
     <div class="recipient-container pt-2">
+      @if(isLoadingChatRoom) {
       <div
-        *ngIf="isLoadingChatRoom"
-        class="loading w-100 h-50 position-absolute d-flex justify-content-center align-items-center flex-column gap-2"
-      >
+        class="loading w-100 h-50 position-absolute d-flex justify-content-center align-items-center flex-column gap-2">
         <div class="spinner-border" role="status">
           <span class="sr-only"></span>
         </div>
         <p style="opacity: 0.7">Đang tải</p>
-      </div>
-      <div
-        class="reciepient rounded-3 m-1 p-2 d-flex align-items-center"
-        *ngFor="let user of listUsers"
-        (click)="selectUser(user)"
-        [id]="user.userID"
-      >
+      </div> }
+
+      <div class="reciepient rounded-3 m-1 p-2 d-flex align-items-center" *ngFor="let user of listUsers"
+        (click)="selectUser(user)" [id]="user.userID">
         <div class="avatar">
           <img src="{{ user.userAvatar }}" alt="" class="rounded-circle ms-2" />
-          <div class="unread-message rounded-circle" *ngIf="!user.isRead"></div>
+          @if(!user.isRead) {
+          <div class="unread-message rounded-circle"></div>
+          }
         </div>
         <div class="content d-flex align-items-center justify-content-center">
           <div class="name" [ngClass]="{ 'unread-name': !user.isRead }">
@@ -42,49 +34,36 @@
       </div>
     </div>
   </div>
-
-  <div
-    class="empty-boxchat col-sm-9 d-flex align-items-center justify-content-center"
-    *ngIf="!currentUser"
-  >
+  @if(!currentUser) {
+  <div class="empty-boxchat col-sm-9 d-flex align-items-center justify-content-center">
     <p style="font-size: 1.25rem; width: fit-content">
       Chọn người bạn muốn gửi tin nhắn ...
     </p>
-  </div>
-  <div class="boxchat col-sm-9" *ngIf="currentUser">
+  </div> }
+
+  @if(currentUser) {
+  <div class="boxchat col-sm-9">
+    @if(isLoadingChatContent) {
     <div
-      *ngIf="isLoadingChatContent"
-      class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
-    >
+      class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3">
       <div class="spinner-border" role="status">
         <span class="sr-only">Đang tải...</span>
       </div>
       <p style="opacity: 0.7">Đang tải</p>
-    </div>
+    </div> }
+
     <div class="chat-header p-2 m-1 rounded-3">
-      <img
-        src="{{ currentUser.userAvatar }}"
-        alt=""
-        class="rounded-circle mx-2"
-      />
+      <img src="{{ currentUser.userAvatar }}" alt="" class="rounded-circle mx-2" />
       <div class="name">{{ currentUser.userName }}</div>
     </div>
     <div class="chat-content" id="boxchat">
-      <div
-        *ngFor="let message of currentUserChat"
-        class="d-flex m-2 mx-4 message"
-        [ngClass]="{ 'sender-message': senderID === message.senderID }"
-      >
-        <p-avatar
-          image="{{
-            senderID === message.senderID
-              ? senderAvatar
-              : currentUser.userAvatar
-          }}"
-          pBadge
-          shape="circle"
-          class="d-flex align-items-center"
-        ></p-avatar>
+      <div *ngFor="let message of currentUserChat" class="d-flex m-2 mx-4 message"
+        [ngClass]="{ 'sender-message': senderID === message.senderID }">
+        <p-avatar image="{{
+              senderID === message.senderID
+                ? senderAvatar
+                : currentUser.userAvatar
+            }}" pBadge shape="circle" class="d-flex align-items-center"></p-avatar>
         <div class="message-content rounded-3 p-2 m-1 mx-2">
           {{ message.content }}
         </div>
@@ -96,18 +75,15 @@
 
     <div class="input-message">
       <span>
-        <input
-          type="text"
-          [(ngModel)]="message"
-          (keydown.enter)="sendMessage()"
-          (focus)="onFocusBoxChat()"
-          placeholder="Nhập tin nhắn ..."
-        />
+        <input type="text" [(ngModel)]="message" (keydown.enter)="sendMessage()" (focus)="onFocusBoxChat()"
+          placeholder="Nhập tin nhắn ..." />
         <button (click)="sendMessage()" [disabled]="!message">
           Gửi
           <i class="ps-1 bi bi-send"></i>
         </button>
       </span>
     </div>
-  </div>
+  </div> }
+
+
 </div>

@@ -1,38 +1,24 @@
-<app-widget
-  [breadcrumbItimes]="breadcrumbItimes"
-  [img]="
+<app-widget [breadcrumbItimes]="breadcrumbItimes" [img]="
     'https://i.ibb.co/y6znmC0/mikhail-vasilyev-Nodtn-Cs-Ld-TE-unsplash-2.jpg'
-  "
-  title="Danh sách ủng hộ"
-></app-widget>
+  " title="Danh sách ủng hộ"></app-widget>
 <div class="container d-flex w-100 justify-content-center">
+  @if(isLoading) {
   <div
-    *ngIf="isLoading"
-    class="loading w-100 h-50 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
-  >
+    class="loading w-100 h-50 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3">
     <div class="spinner-border" role="status">
       <span class="sr-only">Đang tải...</span>
     </div>
     <p style="opacity: 0.7">Đang tải</p>
-  </div>
-  <p-table
-    #dt
-    [value]="listFunds"
-    [rows]="10"
-    [paginator]="true"
-    [globalFilterFields]="[
+  </div> }
+
+  <p-table #dt [value]="listFunds" [rows]="10" [paginator]="true" [globalFilterFields]="[
       'fund.fundName',
       'fund.value',
       'user.userFirstName',
       'user.userLastName',
       'user.userEmail'
-    ]"
-    [tableStyle]="{ 'min-width': '75rem' }"
-    [rowHover]="true"
-    dataKey="id"
-    styleClass="p-datatable-striped"
-    [tableStyle]="{ 'min-width': '25rem' }"
-  >
+    ]" [tableStyle]="{ 'min-width': '75rem' }" [rowHover]="true" dataKey="id" styleClass="p-datatable-striped"
+    [tableStyle]="{ 'min-width': '25rem' }">
     <ng-template pTemplate="caption">
       <div class="search-bar w-100 d-flex">
         <div class="flex pt-2">
@@ -43,14 +29,8 @@
         </div>
         <span class="p-input-icon-right float-end my-auto">
           <i class="pi pi-search"></i>
-          <input
-            pInputText
-            class="p-2"
-            type="text"
-            #textInput
-            (input)="dt.filterGlobal(textInput.value, 'contains')"
-            placeholder="Nhập thông tin"
-          />
+          <input pInputText class="p-2" type="text" #textInput (input)="dt.filterGlobal(textInput.value, 'contains')"
+            placeholder="Nhập thông tin" />
         </span>
       </div>
     </ng-template>

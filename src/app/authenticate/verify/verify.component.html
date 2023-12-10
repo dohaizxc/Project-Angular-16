@@ -3,11 +3,7 @@
     <div class="bg-secondary h-20" id="header-background"></div>
     <form class="bg-white" id="form-container" [formGroup]="verifyForm">
       <div class="logo mb-4 pt-4 d-flex justify-content-center align-items-end">
-        <img
-          class="my-4"
-          src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png"
-          alt="Logo"
-        />
+        <img class="my-4" src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png" alt="Logo" />
       </div>
       <div class="forgot-password d-flex justify-content-center">
         <div class="d-flex">
@@ -20,24 +16,15 @@
       <div class="input-textbox d-flex justify-content-center">
         <span class="p-float-label m-4 mb-1">
           <h6>Mã xác nhận</h6>
-          <input
-            class="inputtext ps-1"
-            id="float-input"
-            type="text"
-            pInputText
-            formControlName="otp"
-          />
-          <div *ngIf="isWrongOtp">
+          <input class="inputtext ps-1" id="float-input" type="text" pInputText formControlName="otp" />
+          @if(isWrongOtp) {
+          <div>
             <small class="text-danger">Bạn chưa nhập email</small>
-          </div>
+          </div> }
         </span>
       </div>
       <div class="btn-container d-flex justify-content-center pt-3">
-        <button
-          type="submit"
-          class="btn btn-primary text-nowrap rounded-3"
-          (click)="verifyEmail()"
-        >
+        <button type="submit" class="btn btn-primary text-nowrap rounded-3" (click)="verifyEmail()">
           Kích hoạt tài khoản
         </button>
       </div>
@@ -49,7 +36,5 @@
     </form>
     <p-toast key="verifySuccess" [preventOpenDuplicates]="true"></p-toast>
   </div>
-  <div
-    class="side-background col-sm-7 col-md-8 bg-secondary h-100 rounded-start-5"
-  ></div>
+  <div class="side-background col-sm-7 col-md-8 bg-secondary h-100 rounded-start-5"></div>
 </div>
