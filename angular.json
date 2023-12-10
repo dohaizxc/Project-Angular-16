@@ -15,7 +15,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
             "outputPath": "dist/app",
             "index": "src/index.html",
@@ -26,10 +26,7 @@
             "inlineStyleLanguage": "less",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.less"],
-            "scripts": [
-              "./node_modules/chart.js/dist/chart.js"
-
-            ]
+            "scripts": ["./node_modules/chart.js/dist/chart.js"]
           },
           "configurations": {
             "production": {
@@ -102,8 +99,7 @@
               "node_modules/quill/dist/quill.snow.css",
               "node_modules/ngx-spinner/animations/ball-atom.css"
             ],
-            "scripts": [
-            ]
+            "scripts": []
           }
         }
       }
