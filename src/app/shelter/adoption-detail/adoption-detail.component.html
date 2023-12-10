@@ -48,12 +48,12 @@
           <b>Người nhận nuôi online</b>
         </div>
       </p-divider>
-
-      <div class="ps-4 adopted-user" *ngFor="let user of requestInfo.animal.onlineAdopters"
-        [attr.data-name]="user.userFirstName + ' ' + user.userLastName">
+      @for (user of requestInfo.animal.onlineAdopters; track user.id) {
+      <div class="ps-4 adopted-user" [attr.data-name]="user.userFirstName + ' ' + user.userLastName">
         <p-avatar image="{{ user.userAvatar }}" size="large" shape="circle"></p-avatar>
         <br />
-      </div>
+      </div> }
+
       @if( !requestInfo.animal.onlineAdopters ||
       requestInfo.animal.onlineAdopters.length === 0) {
       <div class="ps-4 p-2">

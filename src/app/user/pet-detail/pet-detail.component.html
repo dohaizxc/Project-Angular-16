@@ -67,11 +67,13 @@
           <b>Người nhận nuôi online</b>
         </div>
       </p-divider>
-
-      <div class="ps-4" *ngFor="let user of listOnlineAdopter">
+      @for (user of listOnlineAdopter; track user.id) {
+      <div class="ps-4">
         <p-avatar image="{{ user.userAvatar }}" size="large" shape="circle"
           pTooltip="{{ user.userFirstName + ' ' + user.userLastName }}" tooltipPosition="bottom"></p-avatar>
-      </div>
+      </div> }
+
+
       @if(listOnlineAdopter.length == 0) {
       <div class="ps-4 p-2">
         Hiện tại chưa có người nhận nuôi

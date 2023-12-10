@@ -14,20 +14,26 @@
     </div>
     <div class="pet-type w-100 p-2">
       <h4>Loại</h4>
-      <div *ngFor="let pet of petSpecie" class="field-checkbox p-1 d-flex align-items-center">
+      @for (pet of petSpecie; track pet.id) {
+      <div class="field-checkbox p-1 d-flex align-items-center">
         <p-radioButton name="group" [value]="pet.id" [inputId]="pet.id" [(ngModel)]="selectedSpecie"
           (onClick)="onCheckboxBreedChange($event)"></p-radioButton>
         <label [for]="pet.id">{{ pet.value }}</label>
-      </div>
+      </div> }
+
+
     </div>
     <p-divider></p-divider>
     <div class="shelter-type w-100 p-2">
       <h4>Trại cứu trợ</h4>
-      <div *ngFor="let shelter of listShelter" class="field-checkbox p-1">
+      @for (shelter of listShelter; track shelter.id) {
+      <div class="field-checkbox p-1">
         <p-radioButton name="group" [value]="shelter.id" [inputId]="shelter.id" [(ngModel)]="selectedShelter"
           (onClick)="onCheckboxShelterChange($event)"></p-radioButton>
         <label [for]="shelter.id">{{ shelter.value }}</label>
-      </div>
+      </div> }
+
+
     </div>
   </div>
   <div class="pet-list col-9 col-sm-10 col-lg-10">

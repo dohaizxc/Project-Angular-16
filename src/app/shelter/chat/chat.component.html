@@ -18,8 +18,8 @@
         <p style="opacity: 0.7">Đang tải</p>
       </div> }
 
-      <div class="reciepient rounded-3 m-1 p-2 d-flex align-items-center" *ngFor="let user of listUsers"
-        (click)="selectUser(user)" [id]="user.userID">
+      @for (user of listUsers; track user.userID ) {
+      <div class="reciepient rounded-3 m-1 p-2 d-flex align-items-center" (click)="selectUser(user)" [id]="user.userID">
         <div class="avatar">
           <img src="{{ user.userAvatar }}" alt="" class="rounded-circle ms-2" />
           @if(!user.isRead) {
@@ -31,7 +31,7 @@
             {{ user.userName }}
           </div>
         </div>
-      </div>
+      </div> }
     </div>
   </div>
   @if(!currentUser) {
@@ -57,8 +57,8 @@
       <div class="name">{{ currentUser.userName }}</div>
     </div>
     <div class="chat-content" id="boxchat">
-      <div *ngFor="let message of currentUserChat" class="d-flex m-2 mx-4 message"
-        [ngClass]="{ 'sender-message': senderID === message.senderID }">
+      @for (message of currentUserChat; track message.id) {
+      <div class="d-flex m-2 mx-4 message" [ngClass]="{ 'sender-message': senderID === message.senderID }">
         <p-avatar image="{{
               senderID === message.senderID
                 ? senderAvatar
@@ -70,7 +70,8 @@
         <div class="time px-2 my-auto">
           {{ message.timestamp | date : "hh:mm:ss dd/MM/yyyy" }}
         </div>
-      </div>
+      </div> }
+
     </div>
 
     <div class="input-message">

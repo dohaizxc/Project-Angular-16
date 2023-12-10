@@ -52,11 +52,13 @@
       </div>
     </p-divider>
     <div class="pet-type w-100 p-2">
-      <div *ngFor="let status of rescueStatus" class="field-checkbox p-1 d-flex align-items-center">
+      @for (status of rescueStatus; track status.id) {
+      <div class="field-checkbox p-1 d-flex align-items-center">
         <p-radioButton name="group" [value]="status.id" [inputId]="status.id" [(ngModel)]="selectedStatus"
           (onClick)="onCheckboxStatusChange($event)"></p-radioButton>
         <label class="ps-2" [for]="status.id">{{ status.value }}</label>
-      </div>
+      </div> }
+
     </div>
   </div>
   <div class="pet-list col-9 col-sm-10 position-relative">

@@ -17,13 +17,16 @@
       <p-divider></p-divider>
       <div class="funds-type w-100 p-2">
         <h4>Loại quỹ</h4>
-        <div *ngFor="let fundTypes of listFundTypes" class="field-checkbox p-1">
+        @for (fundTypes of listFundTypes; track fundTypes.id) {
+        <div class="field-checkbox p-1">
           <p-radioButton name="group" class="my-auto" [value]="fundTypes.id" [inputId]="fundTypes.id"
             [(ngModel)]="selectedFund" (onClick)="onCheckboxFundChange(fundTypes.id)"></p-radioButton>
           <label class="pt-2 my-auto" [for]="fundTypes.id">{{
             fundTypes.value
             }}</label>
-        </div>
+        </div> }
+
+
       </div>
     </div>
   </div>

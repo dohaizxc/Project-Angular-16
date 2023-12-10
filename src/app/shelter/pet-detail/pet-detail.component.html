@@ -52,10 +52,11 @@
       </p-divider>
 
       <div class="my-2">
-        <div class="ps-4 d-inline" *ngFor="let user of listOnlineAdopter">
+        @for (user of listOnlineAdopter; track user.id) {
+        <div class="ps-4 d-inline">
           <p-avatar image="{{ user.userAvatar }}" size="large" shape="circle"
             pTooltip="{{ user.userFirstName + ' ' + user.userLastName }}" tooltipPosition="bottom"></p-avatar>
-        </div>
+        </div> }
       </div>
       @if(listOnlineAdopter.length === 0) {
       <div class="ps-4 p-2">
