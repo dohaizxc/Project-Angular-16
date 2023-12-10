@@ -1,0 +1,103 @@
+:host::ng-deep {
+  .p-dropdown,
+  input {
+    border: solid 1px;
+  }
+  .p-inputtext {
+    height: 2.5rem;
+  }
+  .p-calendar-w-btn .p-inputtext {
+    border: solid 1px;
+  }
+  .p-calendar {
+    width: 100%;
+  }
+  .p-button {
+    background-color: var(--primary-color);
+    border: none;
+  }
+  .p-datatable {
+    .p-datatable-header {
+      border: none;
+      border-radius: 15px;
+      background-color: #fff;
+    }
+
+    .p-sortable-column,
+    .p-datatable-thead > tr > th {
+      border: none;
+    }
+
+    .p-datatable-thead {
+      border: none;
+      tr {
+        th:first-child {
+          border-top-left-radius: 20px;
+        }
+        th:last-child {
+          border-top-right-radius: 20px;
+        }
+      }
+    }
+
+    .p-datatable-tbody {
+      border-radius: 15px;
+      tr > td {
+        border: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    .p-paginator {
+      background-color: #f5f5f5;
+    }
+    .p-paginator-pages {
+      .p-paginator-page {
+        height: 2rem;
+        min-width: 2rem;
+        border-radius: 5px;
+      }
+      .p-paginator-page.p-highlight {
+        background-color: #7a3d26;
+      }
+    }
+
+    .p-datatable-tfoot {
+      width: 100%;
+    }
+  }
+  p-table {
+    display: flex;
+    justify-content: center;
+    table-layout: auto;
+    height: fit-content;
+  }
+
+  .p-paginator-bottom {
+    border-radius: 0 0 20px 20px;
+    padding: 20px 0px 10px 0;
+    border: none;
+  }
+}
+
+.container-fluid {
+  .card-body {
+    color: #525f7f;
+    background-color: #f7fafc;
+  }
+  .card-profile {
+    .card-profile-image {
+      object-fit: contain;
+      img {
+        max-width: 50%;
+        aspect-ratio: 1/1;
+      }
+    }
+  }
+
+  button {
+    width: fit-content;
+    padding: 0.25rem 0.5rem;
+  }
+}

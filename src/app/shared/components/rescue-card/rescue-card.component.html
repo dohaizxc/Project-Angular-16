@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-content d-flex justify-content-between p-2">
+    <p-tag [rounded]="true" [style]="{ width: 'fit-content' }" [severity]="getSeverity(pet.status)">{{
+      getStatus(pet.status) }}</p-tag>
+    <div class="pet-position d-flex flex-nowrap">
+      <i style="color: #7a3d26" class="bi bi-geo-alt-fill my-auto pe-1"></i>
+      <p class="m-0 my-auto fw-semibold">{{ pet.ward }}, {{ pet.district }}</p>
+      <i (click)="updateRescueDetail()" style="color: #7a3d26; cursor: pointer" *ngIf="pet.status === 'WAITING'"
+        class="bi bi-three-dots ps-2"></i>
+    </div>
+  </div>
+  <p-galleria [value]="pet.images" [showIndicators]="false" [showItemNavigators]="false" [autoPlay]="true"
+    [circular]="true" [showThumbnails]="false" style="cursor: pointer" (click)="routeToRescueDetail()"
+    [containerStyle]="{ 'max-width': '760px' }">
+    <ng-template pTemplate="item" let-item>
+      <img [src]="item" style="
+          width: 100%;
+          display: block;
+          height: 300px;
+          object-fit: cover;
+          border-radius: 0 0 5px 5px;
+        " />
+    </ng-template>
+  </p-galleria>
+</div>

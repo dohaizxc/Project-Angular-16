@@ -1,0 +1,112 @@
+<app-widget
+  [breadcrumbItimes]="breadcrumbItimes"
+  [img]="
+    'https://i.ibb.co/Khq1z5G/cristian-castillo-73py-V0-JJOm-E-unsplash.jpg'
+  "
+  title="Chi tiết bài cứu trợ"
+></app-widget>
+<div class="container p-4">
+  <div class="info p-4">
+    <div class="pet-info my-auto">
+      <div class="basic-info ps-4">
+        <h5>
+          <b>Ngày đăng bài:</b> {{ rescuePost.date | date : "dd/MM/yyyy" }}
+        </h5>
+      </div>
+
+      <p-divider align="left" class="pt-4">
+        <div class="inline-flex align-items-center">
+          <b>Khu vực</b>
+        </div>
+      </p-divider>
+      <div class="status-info ps-4 py-2">
+        <h5>
+          <b>Đường:</b>
+          {{ rescuePost.street }}
+        </h5>
+        <h5>
+          <b>{{ getFirstWord(rescuePost.ward) }}:</b>
+          {{ getLastWord(rescuePost.ward) }}
+        </h5>
+        <h5>
+          <b
+            >{{
+              rescuePost.district.includes("Thị xã")
+                ? getTwoFirstWords(rescuePost.district)
+                : getFirstWord(rescuePost.district)
+            }}:</b
+          >
+          {{
+            rescuePost.district.includes("Thị xã")
+              ? getDistrictName(rescuePost.district)
+              : getLastWord(rescuePost.district)
+          }}
+        </h5>
+        <h5>
+          <b
+            >{{
+              rescuePost.city.includes("Thành phố")
+                ? getTwoFirstWords(rescuePost.city)
+                : getFirstWord(rescuePost.city)
+            }}:</b
+          >
+          {{
+            rescuePost.city.includes("Thành phố")
+              ? getCityName(rescuePost.city)
+              : getLastWord(rescuePost.city)
+          }}
+        </h5>
+      </div>
+      <p-divider align="left" class="pt-2">
+        <div class="inline-flex align-items-center">
+          <b>Miêu tả khu vực</b>
+        </div>
+      </p-divider>
+
+      <h5 class="ps-4 pt-1 pb-2">
+        {{ rescuePost.locationDescription }}
+      </h5>
+      <p-divider align="left" class="pt-2">
+        <div class="inline-flex align-items-center">
+          <b>Miêu tả tình trạng</b>
+        </div>
+      </p-divider>
+
+      <h5 class="ps-4 pt-1 pb-2">
+        {{ rescuePost.animalDescription }}
+      </h5>
+      <div
+        class="button-group d-flex gap-2 justify-content-center"
+        *ngIf="rescuePost.status === 'WAITING'"
+      >
+        <button class="btn btn-primary" (click)="editPost()">
+          Sửa bài đăng
+        </button>
+      </div>
+    </div>
+    <div class="pet-img">
+      <p-galleria
+        [value]="rescuePost.images"
+        [showIndicators]="false"
+        [showItemNavigators]="true"
+        [autoPlay]="true"
+        [circular]="true"
+        [showThumbnails]="false"
+        [containerStyle]="{ 'max-width': '760px' }"
+      >
+        <ng-template pTemplate="item" let-item>
+          <img
+            [src]="item"
+            style="
+              width: 100%;
+              display: block;
+              height: 300px;
+              object-fit: cover;
+              border-radius: 0 0 5px 5px;
+            "
+          />
+        </ng-template>
+      </p-galleria>
+    </div>
+  </div>
+</div>

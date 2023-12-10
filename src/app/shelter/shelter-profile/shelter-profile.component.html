@@ -1,0 +1,213 @@
+<div
+  *ngIf="isLoading"
+  class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
+>
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Đang tải...</span>
+  </div>
+  <p style="opacity: 0.7">Đang tải</p>
+</div>
+
+<div class="container-fluid mt-4" *ngIf="shelter">
+  <div class="row">
+    <!-- card-info -->
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+      <div class="card card-profile shadow">
+        <div class="row justify-content-center">
+          <div
+            class="card-profile-image rounded-circle d-flex justify-content-center"
+          >
+            <img
+              id="imgInput"
+              src="{{ shelter.shelterLogo }}"
+              class="rounded-circle"
+            />
+          </div>
+        </div>
+        <div class="change-logo d-flex justify-content-center my-2">
+          <button
+            (click)="avatarInput.click()"
+            style="width: fit-content; padding: 0.25rem 1.5rem"
+            class="btn btn-primary"
+          >
+            Chọn logo
+          </button>
+          <input
+            type="file"
+            accept="image/png, image/jpeg"
+            #avatarInput
+            (change)="selectedAvatar($event)"
+            style="display: none"
+          />
+        </div>
+        <!-- card-info -->
+        <div class="card-body pt-0 pt-md-4">
+          <div class="text-center">
+            <h3>
+              {{ shelter.shelterName }}
+            </h3>
+            <div>
+              <h5>
+                {{
+                  shelter.unitNoAndStreet +
+                    ", " +
+                    shelter.ward +
+                    ", " +
+                    shelter.district +
+                    ", " +
+                    shelter.city
+                }}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- detail-info -->
+    <div class="col-xl-8 order-xl-1">
+      <div class="card bg-secondary shadow mb-4">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h1 class="mb-0">Tài khoản</h1>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h4 class="heading-small text-muted mb-4">Thông tin trại cứu trợ</h4>
+          <div class="pl-lg-4 position-relative">
+            <div
+              *ngIf="isLoadingProfile"
+              class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
+            >
+              <div class="spinner-border" role="status">
+                <span class="sr-only">Đang tải...</span>
+              </div>
+              <p style="opacity: 0.7">Đang tải</p>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div>
+                  <h6>Email</h6>
+                  <input
+                    class="w-100 rounded-2 p-2 mb-3"
+                    type="text"
+                    placeholder="Username"
+                    [(ngModel)]="shelter.representativeEmailAddress"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div>
+                  <h6>Tên trại</h6>
+                  <input
+                    type="email"
+                    class="w-100 rounded-2 p-2 mb-3"
+                    id="input-email"
+                    [(ngModel)]="shelter.shelterName"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div>
+                  <h6>Số điện thoại</h6>
+                  <input
+                    type="text"
+                    pattern="[0-9]+"
+                    minlength="10"
+                    maxlength="11"
+                    class="w-100 rounded-2 p-2 mb-3"
+                    placeholder="Số điện thoại"
+                    [(ngModel)]="shelter.shelterPhoneNo"
+                  />
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div>
+                  <h6>Facebook</h6>
+                  <input
+                    type="text"
+                    class="w-100 rounded-2 p-2 mb-3"
+                    placeholder="Số điện thoại"
+                    [(ngModel)]="shelter.representativeFacebookLink"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-lg-6">
+                <div>
+                  <h6>Thành phố/Tỉnh</h6>
+                  <p-dropdown
+                    [options]="listProvince"
+                    [filter]="true"
+                    [autoDisplayFirst]="false"
+                    optionLabel="provName"
+                    [(ngModel)]="selectedProvince"
+                    filterBy="provName"
+                    (onChange)="provinceSelectedChange($event.value)"
+                  >
+                  </p-dropdown>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div>
+                  <h6>Quận/Huyện</h6>
+                  <p-dropdown
+                    [filter]="true"
+                    [autoDisplayFirst]="false"
+                    [options]="listDistrict"
+                    [(ngModel)]="selectedDistrict"
+                    optionLabel="distName"
+                    filterBy="distName"
+                    (onChange)="districtSelectedChange($event.value)"
+                  >
+                  </p-dropdown>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div>
+                  <h6>Phường/Xã</h6>
+                  <p-dropdown
+                    [options]="listWard"
+                    [autoDisplayFirst]="false"
+                    [filter]="true"
+                    [(ngModel)]="selectedWard"
+                    filterBy="wardName"
+                    optionLabel="wardName"
+                  >
+                  </p-dropdown>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div>
+                  <h6>Số nhà, tên đường</h6>
+                  <input
+                    class="w-100 rounded-2 p-2 mb-3"
+                    type="text"
+                    [(ngModel)]="shelter.unitNoAndStreet"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-center mt-2">
+              <button
+                class="btn btn-primary m-auto"
+                (click)="updateUserProfile()"
+              >
+                Cập nhật thông tin
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast key="toast"></p-toast>

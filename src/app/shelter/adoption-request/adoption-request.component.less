@@ -1,0 +1,127 @@
+:host::ng-deep {
+  .search-bar {
+    justify-content: space-between;
+    input {
+      background-color: rgb(228, 230, 235);
+      border: none;
+      padding-left: 1rem !important;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .search-bar > .p-input-icon-right > input {
+    height: 100%;
+    border-radius: 13px;
+    background-color: #f5f5f5;
+  }
+
+  p-tag > span {
+    font-size: 0.8rem;
+    width: 7rem;
+    height: 1.6rem;
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
+  }
+  .p-datatable {
+    width: 80%;
+    .p-datatable-header {
+      border: none;
+      border-radius: 15px;
+      background-color: #fff;
+    }
+
+    .p-sortable-column,
+    .p-datatable-thead > tr > th {
+      border: none;
+    }
+
+    .p-datatable-thead {
+      border: none;
+      tr {
+        th:first-child {
+          border-top-left-radius: 20px;
+        }
+        th:last-child {
+          border-top-right-radius: 20px;
+        }
+      }
+    }
+
+    .p-datatable-tbody {
+      border-radius: 15px;
+      tr > td {
+        border: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    .p-paginator {
+      background-color: #f5f5f5;
+    }
+    .p-paginator-pages {
+      .p-paginator-page {
+        height: 2rem;
+        min-width: 2rem;
+        border-radius: 5px;
+      }
+      .p-paginator-page.p-highlight {
+        background-color: #7a3d26;
+      }
+    }
+
+    .p-datatable-tfoot {
+      width: 100%;
+    }
+  }
+  p-table {
+    display: flex;
+    justify-content: center;
+    table-layout: auto;
+    height: fit-content;
+  }
+
+  .p-paginator-bottom {
+    border-radius: 0 0 20px 20px;
+    padding: 20px 0px 10px 0;
+    border: none;
+  }
+}
+
+.content {
+  min-height: 400px;
+}
+.p-selectable-row {
+  cursor: pointer;
+}
+:host::ng-deep {
+  @media (max-width: 768px) {
+    .content {
+      height: 80vh;
+      min-height: 400px;
+      p-table {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        table-layout: auto;
+        height: fit-content;
+        .p-datatable {
+          width: 100%;
+        }
+      }
+    }
+    :host::ng-deep {
+      .search-bar {
+        display: flex;
+        flex-direction: column;
+      }
+      p-table {
+        width: 100%;
+      }
+    }
+  }
+}

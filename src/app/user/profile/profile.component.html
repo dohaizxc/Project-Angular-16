@@ -1,0 +1,253 @@
+<div
+  *ngIf="isLoading"
+  class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body z-3"
+>
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Đang tải...</span>
+  </div>
+  <p style="opacity: 0.7">Đang tải</p>
+</div>
+
+<div class="container-fluid mt-4" *ngIf="!isLoading">
+  <div class="row">
+    <!-- card-info -->
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+      <div class="card card-profile shadow">
+        <div class="row justify-content-center">
+          <div
+            class="card-profile-image rounded-circle d-flex justify-content-center"
+          >
+            <img
+              id="imgInput"
+              src="{{ user.userAvatar }}"
+              class="rounded-circle"
+            />
+          </div>
+        </div>
+        <div class="change-logo d-flex justify-content-center my-2">
+          <button
+            (click)="avatarInput.click()"
+            style="width: fit-content; padding: 0.25rem 1.5rem"
+            class="btn btn-primary"
+          >
+            Chọn ảnh
+          </button>
+          <input
+            type="file"
+            accept="image/png, image/jpeg"
+            #avatarInput
+            (change)="selectedAvatar($event)"
+            style="display: none"
+          />
+        </div>
+        <!-- card-info -->
+        <div class="card-body pt-0 pt-md-4">
+          <div class="text-center">
+            <h3>
+              {{ user.userFirstName + " " + user.userLastName }}
+            </h3>
+            <div>
+              <h5>
+                {{ user.userEmail }}
+              </h5>
+            </div>
+            <div>
+              Số thú cưng đang nhận nuôi online: {{ onlineAdoptionPet.length }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- detail-info -->
+    <div class="col-xl-8 order-xl-1">
+      <div class="card bg-secondary shadow mb-3">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h1 class="mb-0">Tài khoản</h1>
+            </div>
+            <div class="col-lg-4 text-right d-flex gap-2">
+              <button
+                class="btn btn-secondary"
+                (click)="registerShelterAccount()"
+              >
+                Đăng ký trại cứu trợ
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h4 class="heading-small text-muted mb-4">Thông tin cá nhân</h4>
+          <div class="pl-lg-4 position-relative px-4">
+            <div
+              *ngIf="isLoadingProfile"
+              class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
+            >
+              <div class="spinner-border" role="status">
+                <span class="sr-only">Đang tải...</span>
+              </div>
+              <p style="opacity: 0.7">Đang tải</p>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div>
+                  <h6>Email</h6>
+                  <input
+                    class="w-100 rounded-2 p-2 mb-3"
+                    type="text"
+                    placeholder="Username"
+                    [(ngModel)]="user.userEmail"
+                    disabled="true"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div>
+                  <h6>Họ và tên</h6>
+                  <input
+                    type="email"
+                    class="w-100 rounded-2 p-2 mb-3"
+                    id="input-email"
+                    [(ngModel)]="userFullName"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div>
+                  <h6>Số điện thoại</h6>
+                  <input
+                    type="text"
+                    pattern="[0-9]+"
+                    minlength="10"
+                    maxlength="11"
+                    class="w-100 rounded-2 p-2 mb-3"
+                    placeholder="Số điện thoại"
+                    [(ngModel)]="user.phoneNumber"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div>
+                  <span class="p-float-label">
+                    <h6 class="addressLabel ps-0">Giới tính</h6>
+                    <p-dropdown
+                      [options]="genderOptions"
+                      optionLabel="value"
+                      class="mb-3"
+                      [autoDisplayFirst]="false"
+                      [(ngModel)]="selectedGender"
+                    >
+                    </p-dropdown>
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div>
+                  <span class="d-flex flex-column">
+                    <h6 class="addressLabel ps-0">Ngày sinh</h6>
+
+                    <p-calendar
+                      [(ngModel)]="dob"
+                      class="w-100 rounded-2 mb-3"
+                      [showIcon]="true"
+                      dateFormat="dd/mm/yy"
+                    ></p-calendar>
+                  </span>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div>
+                  <span class="d-flex flex-column"> </span>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center mt-2">
+                <button
+                  class="btn btn-primary m-auto"
+                  (click)="updateUserProfile()"
+                >
+                  Cập nhật thông tin
+                </button>
+              </div>
+            </div>
+          </div>
+          <hr class="mt-4" />
+          <h4 class="heading-small text-muted mb-1">
+            Thú cưng đang nhận nuôi online
+          </h4>
+          <div class="pl-lg-6">
+            <div class="row">
+              <div class="my-2">
+                <div
+                  class="ps-4 d-inline d-flex my-2"
+                  style="cursor: pointer"
+                  *ngFor="let adoption of onlineAdoptionPet"
+                  (click)="routeToPetDetails(adoption.animal.animalID)"
+                >
+                  <p-avatar
+                    image="{{
+                      adoption.animal.animalImg
+                        ? adoption.animal.animalImg
+                        : 'https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0'
+                    }}"
+                    size="large"
+                    shape="circle"
+                    pTooltip="{{ adoption.animal.animalName }}"
+                    tooltipPosition="bottom"
+                  ></p-avatar>
+                  <div class="pet-detail ms-2">
+                    <p class="m-0">
+                      Tên thú cưng: {{ adoption.animal.animalName }}
+                    </p>
+                    <p class="m-0">
+                      Ngày hết hạn: {{ adoption.expiry | date : "dd/MM/yyyy" }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="mt-4" />
+          <h4 class="heading-small text-muted mb-1">Lịch sử giao dịch</h4>
+          <div class="pl-lg-6">
+            <div class="row">
+              <p-table
+                #dt
+                [value]="listTransactions"
+                [rows]="5"
+                [paginator]="true"
+                [tableStyle]="{ 'min-width': '75rem' }"
+                [rowHover]="true"
+                dataKey="id"
+                styleClass="p-datatable-striped"
+                [tableStyle]="{ 'min-width': '25rem' }"
+              >
+                <ng-template pTemplate="header">
+                  <tr class="py-5">
+                    <th style="min-width: 6rem" class="ps-4">Tên quỹ</th>
+                    <th pSortableColumn="value">
+                      Số tiền <p-sortIcon field="value"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="date">
+                      Ngày gửi <p-sortIcon field="date"></p-sortIcon>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-fund>
+                  <tr>
+                    <td class="ps-4">{{ fund.fund.fundName }}</td>
+                    <td>{{ fund.value.toLocaleString() + " VND" }}</td>
+                    <td>{{ fund.date | date : "dd/MM/yyyy" }}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast key="toast"></p-toast>

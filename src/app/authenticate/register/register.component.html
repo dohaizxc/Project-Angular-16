@@ -1,0 +1,173 @@
+<div class="container-fluid row">
+  <div class="col-sm-5 col-md-4 h-100">
+    <div class="bg-secondary h-20" id="header-background"></div>
+    <form
+      class="bg-white"
+      id="form-container"
+      [formGroup]="registerForm"
+      (ngSubmit)="registerNewUser()"
+    >
+      <div class="logo mb-4 pt-4 d-flex justify-content-center align-items-end">
+        <img
+          class="mt-4"
+          src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png"
+          alt="Logo"
+        />
+      </div>
+      <div class="forgot-password d-flex justify-content-center">
+        <div class="d-flex">
+          <div class="me-auto mb-2">
+            <h4>Nhập thông tin của bạn</h4>
+          </div>
+        </div>
+      </div>
+      <div class="input-textbox d-flex justify-content-center">
+        <span class="p-float-label m-4 my-2">
+          <h6>Email</h6>
+          <input
+            class="inputtext ps-1 form-control"
+            id="float-input"
+            type="text"
+            pInputText
+            formControlName="userEmail"
+          />
+          <div
+            *ngIf="
+              (registerForm.get('userEmail').invalid &&
+                (registerForm.get('userEmail').dirty ||
+                  registerForm.get('userEmail').touched)) ||
+              isWrongReg ||
+              isWrongEmail
+            "
+          >
+            <small
+              class="text-danger"
+              *ngIf="registerForm.get('userEmail').errors"
+              >Bạn chưa nhập email</small
+            >
+            <small class="text-danger" *ngIf="isWrongReg"
+              >Email đã được đăng ký</small
+            >
+            <small class="text-danger" *ngIf="isWrongEmail"
+              >Email này không tồn tại</small
+            >
+          </div>
+        </span>
+      </div>
+      <div class="input-textbox d-flex justify-content-center">
+        <span class="p-float-label m-4 my-2">
+          <h6>Mật khẩu</h6>
+          <p-password
+            class="inputtext"
+            [toggleMask]="true"
+            formControlName="userPassword"
+          >
+            <!-- <ng-template pTemplate="header">
+              <h6>Pick a password</h6>
+            </ng-template> -->
+            <ng-template pTemplate="content">
+              <!-- <p-divider></p-divider> -->
+              <p class="mt-2">Yêu cầu</p>
+              <ul class="pl-2 ml-2 mt-0 ms-2" style="line-height: 1.5">
+                <li>Ít nhất là 6 ký tự</li>
+                <li>Ít nhất một ký tự chữ và chữ số</li>
+              </ul>
+            </ng-template></p-password
+          >
+          <div
+            *ngIf="
+              registerForm.get('userPassword').hasError('invalidPassword') ||
+              (registerForm.get('userPassword').invalid &&
+                (registerForm.get('userPassword').dirty ||
+                  registerForm.get('userPassword').touched))
+            "
+          >
+            <small class="text-danger"
+              >Mật khẩu cần ít nhất 6 ký tự chữ la tinh và số
+            </small>
+          </div>
+        </span>
+      </div>
+      <div class="input-textbox d-flex justify-content-center">
+        <span class="p-float-label m-4 my-2">
+          <h6>Họ và tên</h6>
+          <input
+            class="inputtext ps-1 form-control"
+            id="float-input"
+            type="text"
+            pInputText
+            formControlName="userName"
+          />
+          <div
+            *ngIf="
+              registerForm.get('userName').invalid &&
+              (registerForm.get('userName').dirty ||
+                registerForm.get('userName').touched)
+            "
+          >
+            <small class="text-danger">Bạn chưa nhập họ tên</small>
+          </div>
+        </span>
+      </div>
+
+      <div class="input-textbox d-flex justify-content-center">
+        <span class="p-float-label m-4 my-2">
+          <h6>Số điện thoại</h6>
+          <input
+            class="inputtext ps-1 form-control"
+            id="float-input"
+            type="number"
+            maxlength="10"
+            minlength="10"
+            pInputText
+            formControlName="phoneNumber"
+          />
+          <div
+            *ngIf="
+              registerForm.get('phoneNumber').invalid &&
+              (registerForm.get('phoneNumber').dirty ||
+                registerForm.get('phoneNumber').touched)
+            "
+          >
+            <small class="text-danger"
+              >Số điện thoại phải đủ 10 hoặc 11 số</small
+            >
+          </div>
+        </span>
+      </div>
+
+      <div class="btn-container d-flex justify-content-center pt-4">
+        <button
+          type="submit"
+          class="btn btn-primary text-nowrap rounded-3"
+          [disabled]="registerForm.invalid"
+        >
+          Tạo tài khoản
+        </button>
+      </div>
+      <div class="sign-up d-flex justify-content-center mt-2">
+        <div>
+          <p>Bạn đã có tài khoản? <a routerLink="/login">Đăng nhập ngay</a></p>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center p-2 my-2">
+        <p>Hoặc</p>
+      </div>
+      <div class="d-flex justify-content-center p-2">
+        <asl-google-signin-button
+          type="standard"
+          size="large"
+          s
+        ></asl-google-signin-button>
+      </div>
+      <p-toast
+        key="wrongEmail"
+        [preventOpenDuplicates]="true"
+        position="bottom-left"
+      ></p-toast>
+    </form>
+  </div>
+  <div
+    class="side-background col-sm-7 col-md-8 bg-secondary h-100 rounded-start-5"
+  ></div>
+</div>

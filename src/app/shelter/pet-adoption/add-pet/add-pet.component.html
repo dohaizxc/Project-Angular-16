@@ -1,0 +1,179 @@
+<form class="container" [formGroup]="addPetForm">
+  <div class="avatar d-flex justify-content-center mt-4 rounded-3">
+    <span
+      class="m-4 my-2 rounded-1 d-flex justify-content-center align-items-center rounded-3"
+    >
+      <label class="custom-file-upload rounded-3">
+        <input
+          type="file"
+          accept="image/png, image/jpeg"
+          id="avatarInput"
+          (change)="selectedAvatar($event)"
+        />
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fimage-holder-icon.png?alt=media&token=2bc0bac5-ea17-4dd9-8c9e-4813316da679"
+          alt=""
+          id="imgInput"
+          class="w-100 rounded-3"
+        />
+        <!-- <i class="pi pi-image" style="font-size: 2.5rem"></i> -->
+      </label>
+    </span>
+  </div>
+  <p-divider align="left">
+    <div class="inline-flex align-items-center">
+      <b>Thông tin</b>
+    </div>
+  </p-divider>
+  <div class="d-flex justify-content-start w-100">
+    <div class="detail-info m-4 my-2 w-100">
+      <span class="p-float-label">
+        <h6 class="addressLabel ps-0">Tên</h6>
+        <input
+          class="inputtext ps-1 w-100"
+          type="text"
+          formControlName="petName"
+        />
+      </span>
+      <span class="p-float-label">
+        <h6 class="addressLabel ps-0">Loại</h6>
+        <p-dropdown
+          [options]="specieOptions"
+          optionLabel="value"
+          [autoDisplayFirst]="false"
+          formControlName="petSpecie"
+        >
+        </p-dropdown>
+      </span>
+      <span class="p-float-label">
+        <h6 class="addressLabel ps-0">Cân nặng</h6>
+        <input
+          class="inputtext ps-1 w-100"
+          type="text"
+          formControlName="petWeight"
+        />
+      </span>
+      <span class="p-float-label">
+        <h6 class="addressLabel ps-0">Giống</h6>
+        <input
+          class="inputtext ps-1 w-100"
+          type="text"
+          formControlName="petBreed"
+        />
+      </span>
+      <span class="p-float-label">
+        <h6 class="addressLabel ps-0">Giới tính</h6>
+        <p-dropdown
+          [options]="genderOptions"
+          optionLabel="value"
+          [autoDisplayFirst]="false"
+          formControlName="petGender"
+        >
+        </p-dropdown>
+      </span>
+      <span class="p-float-label">
+        <h6 class="addressLabel ps-0">Màu sắc</h6>
+        <input
+          class="inputtext ps-1 w-100"
+          type="text"
+          formControlName="petColor"
+        />
+      </span>
+      <span class="p-float-label">
+        <h6 class="addressLabel ps-0">Tuổi</h6>
+        <input
+          class="inputtext ps-1 w-100"
+          type="text"
+          formControlName="petAge"
+        />
+      </span>
+      <!-- <span class="p-float-label">
+        <h6 class="addressLabel ps-0">Chi tiết</h6>
+        <textarea
+          formControlName="petDetails"
+          class="inputtext ps-1 w-100"
+          id="textarea"
+          pInputTextarea
+          [autoResize]="true"
+        ></textarea>
+        <input
+          class="inputtext ps-1 w-100"
+          type="text"
+          formControlName="petDetails"
+        />
+      </span> -->
+    </div>
+  </div>
+  <div class="d-flex justify-content-start w-100">
+    <span class="m-4 my-2 w-100">
+      <h6 class="addressLabel ps-0">Chi tiết</h6>
+      <textarea
+        formControlName="petDetails"
+        class="w-100"
+        name=""
+        id="textarea"
+        pInputTextarea
+        [autoResize]="true"
+      ></textarea>
+    </span>
+  </div>
+  <div class="pet-status">
+    <p-divider align="left">
+      <div class="inline-flex align-items-center">
+        <b>Tình trạng</b>
+      </div>
+    </p-divider>
+    <div class="checkbox-container m-4 my-2 w-100">
+      <div *ngFor="let status of listStatus" class="field-checkbox p-1">
+        <p-checkbox
+          class="pe-2"
+          name="group"
+          [value]="status"
+          [inputId]="status.id"
+          formControlName="{{ status.id }}"
+        ></p-checkbox>
+        <label [for]="status.id">{{ status.value }}</label>
+      </div>
+    </div>
+  </div>
+  <div class="pet-image">
+    <p-divider align="left">
+      <div class="inline-flex align-items-center">
+        <b>Ảnh</b>
+      </div>
+    </p-divider>
+    <div class="d-flex justify-content-center w-100">
+      <p-fileUpload
+        name="file[]"
+        class="w-100 m-4 my-1"
+        name="demo[]"
+        chooseLabel="Chọn ảnh"
+        cancelLabel="Huỷ bỏ"
+        [showUploadButton]="false"
+        [multiple]="true"
+        [maxFileSize]="10000000"
+        (onSelect)="onSelectFiles($event)"
+      >
+        <ng-template pTemplate="content">
+          <!-- <ul *ngIf="uploadedFiles.length">
+            <li *ngFor="let file of uploadedFiles">
+              {{ file.name }} - {{ file.size }} bytes
+            </li>
+          </ul> -->
+        </ng-template>
+      </p-fileUpload>
+    </div>
+  </div>
+  <div class="button-group d-flex justify-content-center mt-2">
+    <button class="btn btn-secondary text-nowrap">Trở về</button>
+    <button
+      type="submit"
+      class="btn btn-primary text-nowrap"
+      (click)="addNewPet()"
+      [disabled]="addPetForm.invalid"
+    >
+      Thêm
+    </button>
+  </div>
+</form>
+<p-toast key="toast"></p-toast>

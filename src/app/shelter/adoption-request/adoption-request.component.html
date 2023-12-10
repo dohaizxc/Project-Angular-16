@@ -1,0 +1,91 @@
+<app-widget
+  [breadcrumbItimes]="breadcrumbItimes"
+  [img]="
+    'https://i.ibb.co/Khq1z5G/cristian-castillo-73py-V0-JJOm-E-unsplash.jpg'
+  "
+  title="Yêu cầu nhận nuôi"
+></app-widget>
+<div class="content">
+  <div
+    *ngIf="isLoading"
+    class="loading w-100 h-50 position-absolute d-flex justify-content-center align-items-center flex-column gap-2 z-3 bg-body"
+  >
+    <div class="spinner-border" role="status">
+      <span class="sr-only"></span>
+    </div>
+    <p style="opacity: 0.7">Đang tải</p>
+  </div>
+  <p-table
+    #dt
+    [value]="listRequest"
+    [paginator]="true"
+    [globalFilterFields]="[
+      'animal.animalName',
+      'user.userFirstName',
+      'user.userLastName'
+    ]"
+    [rows]="10"
+    selectionMode="single"
+    [tableStyle]="{ 'min-width': '25rem' }"
+    emptyMessage="Hiện chưa có yêu cầu nào"
+    stripedRows="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="search-bar w-100 d-flex justify-content-end">
+        <span class="p-input-icon-right">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            class="ps-2 pe-4 py-2"
+            type="text"
+            #textInput
+            (input)="dt.filterGlobal(textInput.value, 'contains')"
+            placeholder="Nhập thông tin"
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="min-width: 200px" class="py-3 ps-4">Tên thú cưng</th>
+        <th style="min-width: 150px" class="py-3">Tên người nhận nuôi</th>
+        <th pSortableColumn="date" style="min-width: 100px" class="py-3">
+          Ngày gửi yêu cầu <p-sortIcon field="date"></p-sortIcon>
+        </th>
+        <th
+          pSortableColumn="applicationStatus"
+          style="min-width: 120px"
+          class="py-3 text-center"
+        >
+          Tình trạng <p-sortIcon field="applicationStatus"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-request>
+      <tr class="p-selectable-row" (click)="onRowSelect(request)">
+        <td class="ps-4">
+          {{ request.animal.animalName }}
+        </td>
+        <td>
+          {{ request.user.userFirstName + " " + request.user.userLastName }}
+        </td>
+        <td>
+          {{ request.date | date : "dd/MM/yyyy" }}
+        </td>
+        <td class="d-flex justify-content-center border border-0">
+          <p-tag
+            [value]="
+              request.applicationStatus === 'PENDING'
+                ? 'Đang chờ'
+                : request.applicationStatus === 'COMPLETED'
+                ? 'Xác nhận'
+                : 'Từ chối'
+            "
+            [severity]="getSeverity(request.applicationStatus)"
+          ></p-tag>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-toast key="reactAdoption"></p-toast>

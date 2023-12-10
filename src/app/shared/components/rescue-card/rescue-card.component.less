@@ -1,0 +1,62 @@
+:host::ng-deep {
+  width: fit-content;
+  display: inline-flex;
+  cursor: pointer;
+  .p-tag {
+    height: 35px;
+    color: #f5f5f5;
+  }
+  .p-tag.p-tag-rounded {
+    border-radius: 10px;
+  }
+}
+.card {
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 32vw;
+  min-width: 180px;
+  min-height: 220px;
+  overflow: hidden;
+  margin: 10px;
+  .card-content {
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    .pet-position {
+      max-width: 100%;
+      width: fit-content;
+    }
+  }
+}
+
+@media (max-width: 649.98px) {
+  .card {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    width: max(45vw, 350px);
+    height: 300px;
+    margin: 5px;
+    .card-content {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      padding: 2px;
+      h3 {
+        align-self: center;
+        font-size: 18px;
+      }
+      p {
+        font-size: 12px;
+        align-self: self-start;
+        margin-bottom: 0rem;
+        padding-left: 5px;
+      }
+    }
+  }
+}
